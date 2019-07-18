@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import './App.css'
+import ListContainer from './components/ListContainer'
+import HeaderContainer from './components/HeaderContainer'
+import FooterContainer from './components/FooterContainer'
+import { compose, withState } from 'recompose'
 
-const COLORS = {
+export const COLORS = {
   Psychic: "#f8a5c2",
   Fighting: "#f0932b",
   Fairy: "#c44569",
@@ -17,11 +21,17 @@ const COLORS = {
 
 class App extends Component {
   render() {
+    const { listData, setListData } = this.props
     return (
       <div className="App">
+        <HeaderContainer />
+        <ListContainer listData={listData} setListData={setListData}/>
+        <FooterContainer listData={listData} setListData={setListData}/>
       </div>
     )
   }
 }
 
-export default App
+export default compose(
+  withState('listData', 'setListData', []),
+)(App)
